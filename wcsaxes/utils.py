@@ -105,6 +105,9 @@ def get_coordinate_system(wcs):
         coordinate_class = FK5
     elif xcoord == 'GLON' and ycoord == 'GLAT':
         coordinate_class = Galactic
+    elif xcoord == 'HPLN' and ycoord == 'HPLT':
+        import sunpy.coordinates
+        coordinate_class = sunpy.coordinates.HelioProjective
     else:
         raise ValueError("System not supported (yet): {0}/{1}".format(xcoord, ycoord))
 
