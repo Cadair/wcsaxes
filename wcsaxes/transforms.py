@@ -217,8 +217,10 @@ try:
             c_in = SkyCoord(x_in, y_in, unit=(u.deg, u.deg), frame=self.input_system)
 
             c_out = c_in.transform_to(self.output_system)
-
-            return np.concatenate((c_out.spherical.lon.deg[:, np.newaxis], c_out.spherical.lat.deg[:, np.newaxis]), 1)
+            r = c_out.frame.data
+            x = np.concatenate([np.asarray(getattr(r, component))[:, np.newaxis] for component in r.components[:2]], 1)
+        
+            return x
 
         transform_non_affine = transform
 
